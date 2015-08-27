@@ -1,0 +1,277 @@
+
+
+REDIS所有的命令
+
+<<ABOUT LIST>>
+
+LPOP key :                    删除并取得LIST头部一个元素
+
+RPOP key :                    删除并取得LIST尾部一个元素
+
+BLPOP key [key ...] timeout : 删除并取得LIST头部一个元素，如果没有就BLOCK
+
+BRPOP key [key ...] timeout : 删除并取得LIST尾部一个元素，如果没有就BLOCK
+
+LPUSH key value :             在LIST头部扩展一个元素
+
+RPUSH key value :             在LIST尾部扩展一个元素
+
+LPUSHX key value :            如果LIST存在，在LIST头部扩展一个元素
+
+RPUSHX key value :            如果LIST存在，在LIST尾部扩展一个元素
+
+LINDEX key index :            通过INDEX取得LIST的一个元素
+
+LLEN key :                    取得LIST的长度
+
+LRANGE key start stop :       取得LIST在指定范围内的元素
+
+LREM key count value :        删除LIST的元素们
+
+LSET key index value :        设置LIST索引为INDEX的元素的值
+
+LTRIM key start stop :        裁剪LIST，保留一定范围的元素
+
+RPOPLPUSH source destination :删除当前LIST的尾部一个元素，并将其扩展到另一个LIST的尾部
+
+BRPOPLPUSH source destination timeout :
+
+                              弹出LIST一个元素，并将其插入到另一个LIST里，然后返回，如果前个LIST空就BLOCK
+
+SORT key [BY pattern] [LIMIT offset count] [GET pattern [GET pattern ...]] [ASC|DESC] [ALPHA] [STORE destination] :
+
+                              排序LIST，SET， SORTED SET
+
+<<ABOUT SET>>
+
+SADD key member :                       向SET中添加一个成员
+
+SREM key member :                       从SET中删除一个成员
+
+SDIFF key [key ...] :                   集合求差集
+
+SINTER key [key ...] :                  集合求交集
+
+SUNION key [key ...] :                  集合求并集
+
+SDIFFSTORE destination key [key ...] :  集合求差集，并保存结果集到另一集合
+
+SINTERSTORE destination key [key ...] : 集合求交集，并保存结果集到另一集合
+
+SUNIONSTORE destination key [key ...] : 集合求并集，并保存结果集到另一集合
+
+SCARD key :                             取得SET成员总数
+
+SISMEMBER key member :                  判断给定值是否为SET成员
+
+SPOP key :                              删除并返回SET任一成员
+
+SRANDMEMBER key :                       返回SET任一成员
+
+SMEMBERS key :                          取得SET所有成员
+
+SMOVE source destination member :       将一个SET中一个成员移动到另一个SET中
+
+<<ABOUT SORTED SET>>
+
+ZADD key score member :                 在SSET中添加一个成员，或者说更新已有成员的SCORE
+
+ZCARD key :                             取得SSET的成员总数
+
+ZCOUNT key min max :                    计算SSET中SCORE在一个给定范围内的成员总数
+
+ZINCRBY key :                           为SSET中的成员自增SCORE
+
+ZINTERSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX] :
+
+                                        求SSET交集，并将结果集保存到一个新KEY
+
+ZRANGE key start stop [WITHSCORES] :    返回SSET中一定INDEX范围内的成员
+
+ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT offset count] : 返回SSET中一定SCORE范围内的成员
+
+ZREM key member :                       删除SSET中一个成员
+
+ZREMRANGEBYRANK key start stop :        删除SSET一定INDEX范围内的成员
+
+ZREMRANGEBYSCORE key min max :          删除SSET一定SCORE范围内的成员
+
+ZREVRANGE key start stop [WITHSCORES] : 返回SSET中一定INDEX范围内的成员，其顺序是SCORE从高到低
+
+ZREVRANGEBYSCORE key max min [WITHSCORES] [LIMIT offset count] : 返回SSET中一定SCORE范围内的成员，其顺序是SCORE从高到低
+
+ZSCORE key member :                     获得SSET中与给定MEMBER关联的SCORE
+
+ZUNIONSTORE destination numkeys key [key ...] [WEIGHTS weight [weight ...]] [AGGREGATE SUM|MIN|MAX] :
+
+                                        SSET求并集，并将结果集存到一个新的KEY中
+
+<<ABOUT HASH>>
+
+HDEL key field :                            删除一个HASHFIELD
+
+HEXISTS key field :                         判断一个HASHFIELD是否存在
+
+HGET key field :                            获得一个HASHFIELD的值
+
+HGETALL key :                               获得一个HASH所有的FIELDs和VALUEs
+
+HINCRBY key field increment ：               对HASHFIELD的整数值增加increment的整数值
+
+HKEYS key :                                 获得HASH所有的FIELD
+
+HLEN key :                                  获得HASH内FIELD总数
+
+HMGET key field [field ...] :               获得HASH指定FIELD的所有值
+
+HMSET key field value [field value ...] :   设置HASH的一些FILED和VALUE
+
+HSET key field value :                      设置HASH的某FIELD为某值
+
+HSETNX key field value :                    当HASH的某FIELD不存在时候，设置其为某值
+
+HVALS key :                                 获得HASH的所有值
+
+<<ABOUT KEY>>
+
+DEL key [key ...] :         删除一个KEY
+
+GET key :                   获得一个KEY的值
+
+SETEX key seconds value :   设置KEY的VALUE和EXP时间
+
+SETNX key value :           设置KEY的VALUE，前提是KEY之前不存在
+
+SET key value :             设置KEY，VALUE
+
+APPEND key value :          向一个KEY扩展一个值
+
+DEBUG OBJECT key :          获得一个KEY的DEBUG信息
+
+DECR key :                  给一个KEY-1
+
+DECRBY key integer :        给一个KEY-integer
+
+EXISTS key :                判断一个KEY是否存在
+
+EXPIRE key seconds :        设定一个KEY的TTL（second）
+
+EXPIREAT key timestamp :    设定一个KEY的TTL（unix timestamp）
+
+TTL key :                   获得KEY的TTL
+
+PERSIST key :               删除一个KEY的过期标志
+
+KEYS pattern :              查找所有符合PATTERN的KEY
+
+MOVE key db :               将一个KEY移动到另一个DATABASE中
+
+RENAME key newkey :         重命名一个KEY
+
+RENAMENX key newkey :       给一个KEY重命名，前提是新KEYNAME不存在
+
+RANDOMKEY :                 从KEYSPACE返回一个任一的KEY
+
+<<ABOUT VALUE>>
+
+GETRANGE key start end :            获得KEY对应的字符串里指定范围的子串
+
+GETSET key value :                  设置KEY对应的VALUE，并返回老的VALUE
+
+INCR key :                          为KEY对应的整数值自增1
+
+INCRBY key increment :              为KEY对应的整数值自增increment
+
+MGET key [key ...] :                获得所有指定KEY的值
+
+MSET key value [key value ...] :    为指定的KEYS设置指定的VALUES
+
+MSETNX key value [key value ...] :  当指定的KEY存在时候，为指定的KEYS设置指定的VALUES
+
+STRLEN key :                        获得KEY的VALUE长度
+
+<<ABOUT SERVER>>
+
+INFO :                                          获得服务器的状态信息和统计信息
+
+MONITOR :                                       实时监听SERVER获得的所有请求
+
+PING :                                          Ping服务器
+
+QUIT :                                          关闭链接
+
+PUBLISH channel message :                       发布一个消息到一个CHANNEL
+
+AUTH password :                                 认证服务器
+
+LASTSAVE :                                      获得最后一次成功SAVETODISK的时间戳
+
+OBJECT subcommand [arguments [arguments ...]] : 侦测REDIS对象的内部
+
+PSUBSCRIBE pattern [pattern ...] :              监听发布到CHANNEL的所有符合PATTERN的消息
+
+PUNSUBSCRIBE [pattern [pattern ...]] :          停止监听发布到CHANNEL的所有符合PATTERN的消息
+
+CONFIG RESETSTAT :                              重设INFO命令返回的状态信息
+
+SUBSCRIBE channel [channel ...] :               监听指定CHANNEL的消息
+
+UNSUBSCRIBE [channel [channel ...]] :           停止监听指定CHANNEL的消息
+
+UNWATCH : Forget about all watched keys         停止监视所有被监视的KEY
+
+WATCH key [key ...] :                           监视所有给定的KEY，来判断MULTI和EXEC块的执行
+
+<<ABOUT DATABASE>>
+
+SAVE Synchronously :    保存DATASET到硬盘
+
+SELECT index :          切换当前数据库
+
+BGSAVE :                异步保存DATASET到硬盘
+
+DBSIZE :                    返回一个DATABASE的KEY总数
+
+FLUSHALL :                  删除所有DATABASE上所有的KEY
+
+FLUSHDB :                   删除当前DATABASE上所有的KEY
+
+SHUTDOWN Synchronously :                        保存DATASET到硬盘后，关闭服务器
+
+<<CONFIGURE>>
+
+CONFIG GET parameter :          获得一个配置参数值
+
+CONFIG SET parameter value :    设置一个配置参数为给定值
+
+<<OTHER>>
+
+GETBIT key offset :             返回KEY对应的VALUE在OFFSET的比特值
+
+MULTI :                         标识一个业务块的开始
+
+SETRANGE key offset value :     从指定的OFFSET开始覆盖写KEY对应的VALUE串
+
+BGREWRITEAOF :                  异步重写append-only file
+
+DEBUG SEGFAULT :                使服务器crash
+
+DISCARD :                       忽略所有的以MULTI开头的命令
+
+ECHO message :                  ECHO message
+
+EXEC :                          执行所有以MULTI开头的命令
+
+SLAVEOF host port :             使本服务器成为另一REDIS HOST的SLAVE，或者使本服务器成为主服务器
+
+SYNC :                          内部备份命令
+
+LINSERT key BEFORE|AFTER refvalue value : 向列表key的refvalue之前或者之后插入value
+
+ZRANK key member : Determine the index of a member in a sorted set
+
+ZREVRANK key member : Determine the index of a member in a sorted set, with scores ordered from high to low
+
+SETBIT key offset value : Sets or clears the bit at offset in the string value stored at key
+
+TYPE key : Determine the type stored at key
