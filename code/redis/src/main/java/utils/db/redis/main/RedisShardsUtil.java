@@ -66,7 +66,7 @@ class RedisShardsUtil extends RedisUtil {
 					//循环增加分片列表
 					List<JedisShardInfo> list = new LinkedList<JedisShardInfo>();
 					for (int i = 0; i < hosts.length; i++) {
-						list.add(new JedisShardInfo(hosts[i], ports[i]));
+						list.add(new JedisShardInfo(hosts[i], Integer.valueOf(ports[i])));
 					}
 
 					pool = new ShardedJedisPool(config, list);
